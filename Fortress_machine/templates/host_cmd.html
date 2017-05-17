@@ -1,0 +1,45 @@
+{% extends 'public/layout.html' %}
+{% load staticfiles %}
+{% block title %}CrazyEye | HostCMD {% endblock %}
+{% block extra-css %}
+    <style>
+        div.list-group ul li{
+            list-style: none;
+            margin-top: 5px;
+        }
+        #idExecute{
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+{% block page-content %}
+    {% csrf_token %}
+    <div class="row">
+        {% include 'include/host_list.html' %}
+        <div class="col-sm-9">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">命令操作</h3>
+                </div>
+                <div class="panel-body">
+                    <textarea  id="cmd_input" class="form-control" placeholder="命令..."> </textarea>
+                    <input exeute-type="cmd" id='idExecute' type="button" class="btn btn-success pull-right" value="执行命令">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        任务结果
+                        <button id='title_status' class="btn btn-warning"></button>
+                    </h3>
+                </div>
+                <div class="panel-body" >
+                    <ul id="task_result_container"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra-js %}
+    <script src="{% static 'js/web/host.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'public/layout.html' %}
+{% block title %}CrazyEye | HostLog {% endblock %}
+{% block extra-css %}
+    <style>
+        .handle_log {
+            font-size: 13px !important;
+            font-family: Tahoma, Geneva, Helvetica, sans-serif !important;
+        }
+
+        .time {
+            padding: 10px;
+            border: 1px solid #ddd;
+            position: absolute;
+            width: 150px;
+            box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.12);
+        }
+
+        .record {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 17px;
+            min-height: 40px;
+            box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.12);
+        }
+
+        .record .auther {
+            text-align: right;
+            padding: 5px 0;
+            color: #9E9C9C;
+        }
+
+        .record-arrow {
+            position: absolute;
+            width: 24px;
+            height: 14px;
+            background: url(/statics/img/bg_dot_left3.png) no-repeat;
+            top: 15px;
+            left: -6px;
+            text-indent: -9999em;
+        }
+
+        .record, .record-arrow{
+            margin-left: 200px;
+        }
+
+        .tag {
+            padding: 6px;
+            background-color: #00a2ca;
+            margin: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .add-tag {
+            margin: 10px;
+            color: #00a2ca;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+{% endblock %}
+{% block page-content %}
+    <div class="clearfix handle_log">
+    <div class="left clearfix" style="border-left:2px dashed #ddd;width:70%;">
+        {% for log in log_data %}
+            <div style="position:relative;">
+                <div class="time">{{ log.date | date:"Y-m-d H:i:s" }}</div>
+                <div class="record-arrow"></div>
+                <div class="record">
+                    {{ log.result }}
+                    <div class="auther">
+                        <span><i class="fa fa-user"></i></span>
+                        <span>{{ log.host_to_remote_user.remote_user.username }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

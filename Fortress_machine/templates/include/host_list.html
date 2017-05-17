@@ -1,0 +1,59 @@
+<div class="col-sm-3">
+    <div class="panel ">
+        <div class="panel-heading">
+            <h3 class="panel-title">可操作的主机列表</h3>
+        </div>
+        <div class="panel-body">
+            <div class="btn-group" role="group" style="margin-bottom: 10px">
+                <button id="idCheckAll" type="button" class="btn btn-success">
+                    <i class="fa fa-check-square"></i> 全选
+                </button>
+                <button id="idReverseAll" type="button" class="btn btn-success">
+                    <i class="fa fa-check-square-o"></i> 反选
+                </button>
+                <button id="idCancelAll" type="button" class="btn btn-success">
+                    <i class="fa fa-minus-square-o"></i> 取消
+                </button>
+            </div>
+            <div class="list-group bord-no">
+                {% for host_group in request.user.host_groups.all %}
+                    <a class="list-group-item" href="#">
+                        {{ host_group.name | upper }}
+                        <span class="badge badge-primary">
+                            {{ host_group.host_to_remote_users.count }}
+                        </span>
+                    </a>
+                    <ul style="display: none">
+                    {% for host_to_user_obj in host_group.host_to_remote_users.all %}
+                        <li>
+                            <label class="host-checkbox form-checkbox form-icon form-text">
+                                <input type="checkbox" tag="host-select" value="{{ host_to_user_obj.id }}">
+                                {{ host_to_user_obj.host.name }}
+                                @
+                                {{ host_to_user_obj.remote_user.username }}
+                            </label>
+                        </li>
+                     {% endfor %}
+                    </ul>
+                {% endfor %}
+                <a class="list-group-item" href="#">未分组主机
+                    <span class="badge badge-primary">
+                        {{ request.user.host_to_remote_users.count }}
+                    </span>
+                </a>
+                <ul style="display: none">
+                    {% for host_to_user_obj in request.user.host_to_remote_users.all %}
+                        <li>
+                            <label class="host-checkbox form-checkbox form-icon form-text">
+                                <input type="checkbox" tag="host-select" value="{{ host_to_user_obj.id }}">
+                                {{ host_to_user_obj.host.name }}
+                                @
+                                {{ host_to_user_obj.remote_user.username }}
+                            </label>
+                        </li>
+                     {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

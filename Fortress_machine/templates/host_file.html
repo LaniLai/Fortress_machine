@@ -1,0 +1,65 @@
+{% extends 'public/layout.html' %}
+{% load staticfiles %}
+{% block title %}CrazyEye | HostFile {% endblock %}
+{% block extra-css %}
+    <style>
+        div.list-group ul li{
+            list-style: none;
+            margin-top: 5px;
+        }
+    </style>
+{% endblock %}
+{% block page-content %}
+    {% csrf_token %}
+    <div class="row">
+        {% include 'include/host_list.html' %}
+        <div class="col-sm-9">
+            <div class="panel ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">文件操作(注意文件路径)</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="input-group mar-btm">
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning" type="button">选择批量模式</button>
+                        </span>
+                        <select id="file_type" class="form-control">
+                            <option value="" selected>--------</option>
+                            <option value="post">批量文件上传</option>
+                            <option value="get">批量文件下载</option>
+                        </select>
+                    </div>
+                    <div class="form-horizontal">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button">本地文件路径</button>
+                            </span>
+                            <input id="local_file_path" placeholder="例如：d:/test.py" class="form-control" type="text">
+                        </div>
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button">远程文件路径</button>
+                            </span>
+                            <input id="remote_file_path" placeholder="例如：/root/test.py" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <input exeute-type="file" id='idExecute' type="button" class="btn btn-success pull-right" value="执行">
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        任务结果
+                        <button id='title_status' class="btn btn-warning hide"></button>
+                    </h3>
+                </div>
+                <div class="panel-body" >
+                    <ul id="task_result_container"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra-js %}
+    <script src="{% static 'js/web/host.js' %}"></script>
+{% endblock %}
